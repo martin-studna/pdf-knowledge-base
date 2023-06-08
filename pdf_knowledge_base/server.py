@@ -15,7 +15,7 @@ app = FastAPI()
 docstore = None
 chain = None
 
-@app.post("/upload_pdfs")
+@app.post("/upload-pdfs")
 async def upload_pdfs(files: List[UploadFile] = File(...)):
     global docstore
     global chain
@@ -42,6 +42,7 @@ async def upload_pdfs(files: List[UploadFile] = File(...)):
     texts = text_splitter.split_text(raw_text)
     
     embeddings = OpenAIEmbeddings()
+    
     
     docstore = FAISS.from_texts(texts, embeddings)
     chain = load_qa_chain(OpenAI(), chain_type="stuff")
